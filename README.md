@@ -6,7 +6,7 @@ The branching code is about 3.4x slower than the non-branching code.
 
 ## Code
 
-### Branching Code:
+### Branching:
 
 ```rust
 match shape.shape_type {
@@ -17,7 +17,7 @@ match shape.shape_type {
 }
 ```
 
-### Non Branching Code:
+### Non Branching:
 
 ```rust
 let coefficient = match shape.shape_type {
@@ -33,32 +33,25 @@ coefficient * shape.width * shape.height
 
 ```bash
 $ cargo bench
-   Compiling shape v0.1.0 (/home/yoav/playground/rust/shape)
-    Finished bench [optimized] target(s) in 2.10s
-     Running unittests src/lib.rs (target/release/deps/shape-69fae79cbed89125)
+```
 
-running 0 tests
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-
-     Running benches/get_area.rs (target/release/deps/get_area-a41c4608bcfe561c)
-Shape Area/Branching/100000
-                        time:   [703.49 µs 718.96 µs 733.51 µs]
-Shape Area/Non Branching/100000
-                        time:   [212.15 µs 215.83 µs 219.85 µs]
-Found 5 outliers among 100 measurements (5.00%)
-  3 (3.00%) low mild
-  1 (1.00%) high mild
-  1 (1.00%) high severe
+```
+ShapeArea/Branching/100000-repetitions
+                        time:   [608.63 µs 616.95 µs 625.30 µs]
+ShapeArea/NonBranching/100000-repetitions
+                        time:   [146.78 µs 149.05 µs 151.31 µs]
 ```
 
 ## Viewing the assembly
 
-### Branching Code:
+### Branching:
 
 
 ```bash
 $ cargo asm shape::get_area_branching
+```
+
+```assembly
 shape::get_area_branching:
  movzx   eax, byte, ptr, [rdi, +, 8]
  lea     rcx, [rip, +, .LJTI0_0]
@@ -81,10 +74,13 @@ shape::get_area_branching:
  ret
 ```
 
-### Non Branching Code:
+### Non Branching:
 
 ```bash
 $ cargo asm shape::get_area_non_branching
+```
+
+```assembly
 shape::get_area_non_branching:
  movzx   eax, byte, ptr, [rdi, +, 8]
  lea     rcx, [rip, +, .Lswitch.table._ZN5shape22get_area_non_branching17h104da2585c6dbc8eE]

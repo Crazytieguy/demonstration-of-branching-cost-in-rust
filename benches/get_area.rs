@@ -18,10 +18,11 @@ fn random_shape() -> Shape {
 }
 
 fn bench_area(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Shape Area");
+    let mut group = c.benchmark_group("ShapeArea");
     let random_shapes: Vec<_> = (0..100000).map(|_| random_shape()).collect();
+    let repetitions_str = format!("{}-repetitions", random_shapes.len());
     group.bench_with_input(
-        BenchmarkId::new("Branching", random_shapes.len()),
+        BenchmarkId::new("Branching", &repetitions_str),
         &random_shapes,
         |b, shapes| {
             b.iter(|| {
@@ -32,7 +33,7 @@ fn bench_area(c: &mut Criterion) {
         },
     );
     group.bench_with_input(
-        BenchmarkId::new("Non Branching", random_shapes.len()),
+        BenchmarkId::new("NonBranching", &repetitions_str),
         &random_shapes,
         |b, shapes| {
             b.iter(|| {
