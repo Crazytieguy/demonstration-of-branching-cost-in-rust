@@ -1,6 +1,6 @@
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use rand::random;
-use shape::{get_area_switch, get_area_union, Shape, ShapeType};
+use shape::{get_area_branching, get_area_non_branching, Shape, ShapeType};
 
 use ShapeType::*;
 
@@ -26,7 +26,7 @@ fn bench_area(c: &mut Criterion) {
         |b, shapes| {
             b.iter(|| {
                 shapes.iter().for_each(|shape| {
-                    black_box(get_area_switch(shape));
+                    black_box(get_area_branching(shape));
                 })
             });
         },
@@ -37,7 +37,7 @@ fn bench_area(c: &mut Criterion) {
         |b, shapes| {
             b.iter(|| {
                 shapes.iter().for_each(|shape| {
-                    black_box(get_area_union(shape));
+                    black_box(get_area_non_branching(shape));
                 })
             })
         },

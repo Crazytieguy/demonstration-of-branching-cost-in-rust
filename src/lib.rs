@@ -15,7 +15,8 @@ pub struct Shape {
     pub height: f32,
 }
 
-pub fn get_area_switch(shape: &Shape) -> f32 {
+/// Roughly equivalent to Casey's GetAreaSwitch
+pub fn get_area_branching(shape: &Shape) -> f32 {
     match shape.shape_type {
         Square => 1.0 * shape.width * shape.height,
         Rectangle => 1.0 * shape.width * shape.height,
@@ -24,7 +25,8 @@ pub fn get_area_switch(shape: &Shape) -> f32 {
     }
 }
 
-pub fn get_area_union(shape: &Shape) -> f32 {
+/// Roughly equivalent to Casey's GetAreaUnion
+pub fn get_area_non_branching(shape: &Shape) -> f32 {
     let coefficient = match shape.shape_type {
         Square => 1.0,
         Rectangle => 1.0,
