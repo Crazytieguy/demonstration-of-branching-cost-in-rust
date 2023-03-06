@@ -1,4 +1,4 @@
-# Demonstration of the optimizability of match statements in rust
+# Demonstration of the cost of branching in Rust
 
 This is based on a [video by Molly Rocket](https://www.youtube.com/watch?v=tD5NrevFtbU&t=1214s) where he shows how clean code can lead to poor performance. This is more or less a port of his demonstation regarding 'hiding internal implementation details' to rust.
 
