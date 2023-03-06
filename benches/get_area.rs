@@ -21,7 +21,7 @@ fn bench_area(c: &mut Criterion) {
     let mut group = c.benchmark_group("Shape Area");
     let random_shapes: Vec<_> = (0..100000).map(|_| random_shape()).collect();
     group.bench_with_input(
-        BenchmarkId::new("Switch", random_shapes.len()),
+        BenchmarkId::new("Branching", random_shapes.len()),
         &random_shapes,
         |b, shapes| {
             b.iter(|| {
@@ -32,7 +32,7 @@ fn bench_area(c: &mut Criterion) {
         },
     );
     group.bench_with_input(
-        BenchmarkId::new("Union", random_shapes.len()),
+        BenchmarkId::new("Non Branching", random_shapes.len()),
         &random_shapes,
         |b, shapes| {
             b.iter(|| {
